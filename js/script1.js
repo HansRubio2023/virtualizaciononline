@@ -19,35 +19,58 @@ prevMonthDOM.addEventListener('click', ()=>lastMonth());
 nextMonthDOM.addEventListener('click', ()=>nextMonth());
 
 
+
+let selectedDayElement = null;
+
 var writeMonth = (month) => {
     datesContainer.innerHTML = '';  
 
-// Calculamos la fecha 7 días atrás desde la fecha actual
-const currentDate = new Date();
-currentDate.setDate(currentDate.getDate() - 8);
+    // Calculamos la fecha 7 días atrás desde la fecha actual
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 8);
 
-for (let i = startDay(); i > 0; i--) {
-    // Los días anteriores no son clicables
-    const day = getTotalDays(monthNumber - 1) - (i - 1);
-    datesContainer.innerHTML += ` <div class="calendar__date calendar__item calendar__last-days disabled">
-        ${day}
-    </div>`;
-}
+    // Días anteriores
+    for (let i = startDay(); i > 0; i--) {
+        const day = getTotalDays(monthNumber - 1) - (i - 1);
+        datesContainer.innerHTML += ` <div class="calendar__date calendar__item calendar__last-days disabled">
+            ${day}
+        </div>`;
+    }
 
-    for(let i=1; i<=getTotalDays(month); i++){
-        let dayElement =document.createElement('div');
+    // Días del mes actual
+    for(let i = 1; i <= getTotalDays(month); i++){
+        let dayElement = document.createElement('div');
         dayElement.className = 'calendar__date calendar__item';
-        if (i === currentDay && monthNumber === month && currentYear === currentYear) {
+        
+        // Mantener el estilo del día actual
+        if (i === currentDay && monthNumber === currentDate.getMonth() && currentYear === currentDate.getFullYear()) {
             dayElement.classList.add('calendar__today');
         }
         
-        if (currentDate > new Date(currentYear, monthNumber -0, i)) {
+        // Deshabilitar días pasados
+        if (currentDate > new Date(currentYear, monthNumber, i)) {
             dayElement.classList.add('disabled');
         }
+
         dayElement.textContent = i;
         datesContainer.appendChild(dayElement);
+
+        // Evento de selección de día
+        dayElement.addEventListener('click', function() {
+            // Remover la clase de día seleccionado del día anterior
+            if (selectedDayElement) {
+                selectedDayElement.classList.remove('calendar__selected');
+            }
+
+            // No cambiar el color del día actual al seleccionarlo
+            if (!dayElement.classList.contains('calendar__today')) {
+                dayElement.classList.add('calendar__selected');
+                selectedDayElement = dayElement;
+            }
+        });
     } 
 }
+
 
 const getTotalDays = month => {
     if(month === -1) month = 11;

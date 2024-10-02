@@ -168,7 +168,7 @@ die();
 	<link rel="stylesheet" href="https://campus.unap.cl/generalidades/lib/bootstrap-4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://campus.unap.cl/generalidades/lib/fontawesome-5.12.0/css/all.min.css">
 	<link rel="stylesheet" href="https://campus.unap.cl/generalidades/lib/toastr-2.1.3/css/toastr-2.1.3.min.css">
-	<link rel="styleshet" href="index/plugins/toastr/toastr.min.css">
+	<link rel="stylesheet" href="index/plugins/toastr/toastr.min.css">
 
 	<style>
 		
@@ -454,7 +454,7 @@ die();
 	</div>
 	
 	<br><br>
-	<script src="/index/index/js/script1.js"></script>
+	<script src="js/script1.js"></script>
     <script src="https://campus.unap.cl/generalidades/lib/jquery-3.3.1/jquery-3.3.1.min.js"></script>
 	<script src="https://campus.unap.cl/generalidades/lib/bootstrap-4.5.2/js/bootstrap.bundle.min.js"></script>
 	<script src="https://campus.unap.cl/generalidades/lib/toastr-2.1.3/js/toastr-2.1.3.min.js"></script>
@@ -462,32 +462,34 @@ die();
 	
 
 	
-<script>
+	<script>
 
-	$(document).ready(function() {
-		toastr.options = {
-			"preventDuplicates": true
-		}
-		function validarCampos() {
-			// Verificamos si los tres campos obligatorios están marcados
-			const campoGuiar = document.getElementById('flexCheckDefault');
-			const campoGuiar1 = document.getElementById('flexCheckDefault1');
-			const campoGuiar2 = document.getElementById('flexCheckDefault2');
-			if (!(campoGuiar.checked && campoGuiar1.checked && campoGuiar2.checked)) {
-				toastr.error("Tiene que seleccionar los tres primeros campos obligatorios", "ERROR");
-				return;
-			} else {	
-				// Agregamos un evento al botón que marcará el día seleccionado
-				document.getElementById('guardar-sesiones').addEventListener('click', function() {
-					marcarDiaSeleccionado();	
-					toastr.success("Guardado Exitoso", "Guardado");
-				});
-			}
-		}
-		$("#guardar-sesiones").click(function() {
-			validarCampos();
-		});
-	});
+$(document).ready(function() {
+	toastr.options = {
+		"preventDuplicates": true
+	}
+	function validarCampos() {
+		// Verificamos si los tres campos obligatorios están marcados
+		const campoGuiar = document.getElementById('flexCheckDefault');
+		const campoGuiar1 = document.getElementById('flexCheckDefault1');
+		const campoGuiar2 = document.getElementById('flexCheckDefault2');
+		if (!(campoGuiar.checked && campoGuiar1.checked && campoGuiar2.checked)) {
+			toastr.error("Tiene que seleccionar los tres primeros campos obligatorios", "ERROR");
+			return;
+		} else {	
+			// Agregamos un evento al botón que marcará el día seleccionado
+			document.getElementById('guardar-sesiones').addEventListener('click', function() {
+				// Primero validamos los campos
+			if (validarCampos()) {  // Asegúrate de que validarCampos devuelva true si es válido
+				marcarDiaSeleccionado();  // Si es válido, marca el día seleccionado
+				toastr.success("Guardado Exitoso", "Guardado");
+		} else {
+			toastr.error("Error en los campos", "Error");
+}
+});
+});
+
+</script>
 
 </script>
 
