@@ -164,32 +164,30 @@ die();
 	<link rel="stylesheet" href="css/styles.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>Validar clase online - Universidad Arturo Prat</title>	
-	<link rel="icon" href="/index/presentacion/img/favicon.ico" type="image/x-icon">	
+	<link rel="icon" href="C:\xampp\htdocs\index_virtualizacion\presentacion\img\favicon.ico" type="image/x-icon">	
 	<link rel="stylesheet" href="https://campus.unap.cl/generalidades/lib/bootstrap-4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://campus.unap.cl/generalidades/lib/fontawesome-5.12.0/css/all.min.css">
 	<link rel="stylesheet" href="https://campus.unap.cl/generalidades/lib/toastr-2.1.3/css/toastr-2.1.3.min.css">
 	<link rel="stylesheet" href="index/plugins/toastr/toastr.min.css">
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 	<style>
-		
 		.calendar__date.selected {
-        	background-color: #127fa4; 
+        	background-color: #606060; 
         	color: #fff;
-        	cursor: pointer; /* Cambiar el cursor al hacer hover */
-
+        	cursor: pointer; 
         }
 		.calendar__date.disabled {
-            background-color: #ccc; /* cambiar el color para los dias deshabilitados */
+            background-color: #ccc; 
             color: #666;
             cursor: not-allowed;
         }	
 		.calendar__date.today {
-			background-color: #fff; /* cambio el color del dia actual */
+			background-color: #fff; 
 			color: #000;
 		}
 
 
-        header{background: #046DAB;}
+        header{background: #036dab;}
         #div_general ul li{margin: 4px 0;}
         #div_general td{padding: 5px 10px;}
         h4,h5{font-weight: bold;}
@@ -200,21 +198,21 @@ die();
         }
 		
 		#customers {
-		font-family: Arial, Helvetica, sans-serif;
-		border-collapse: collapse;
-		width: 100%;
+			font-family: Arial, Helvetica, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
 		}
 
 		#customers td, #customers th {
-		border: 1px solid #ddd;
-		padding: 8px;
+			border: 1px solid #ddd;
+			padding: 8px;
 		}
 
 		#customers th {
-		padding-top: 12px;
-		padding-bottom: 12px;
-		text-align: left;
-		color: white;
+			padding-top: 12px;
+			padding-bottom: 12px;
+			text-align: left;
+			color: white;
 		}
 		#label1{
 			color: rgb(247, 5, 5);
@@ -222,24 +220,47 @@ die();
 		.check-indicador{
                height: 12px;
             }
+
+		.pb-1 , .py-1 {
+			padding-bottom: .01rem !important;
+		}	
+
+		.row {
+			display: flex;
+			flex-wrap: wrap;
+			margin-right: 15px;
+			margin-left: -15px;
+			margin-bottom: -5px;
+		}
+		.card {
+			position:relative;
+			display:flex;
+			flex-direction: column;
+			min-width: 0;
+			word-wrap: break-Word;
+			background-color: #fff;
+			background-clip: border-box;
+			border: 1px solid rgba(0, 0, 0, .125);
+			border-radius: .25rem;
+		}
+		.calendar__today{
+			background-color: #036dab;
+		}
     </style>
 </head>
 
 <body style="background-color: white;" class=""> 
-
-
 		<header id="header-criterios" data-user="c45938f1943cf589" data-site="a12c45f7972988f0ffc70ed77137590fec540d068c6f0dba9c93adfd67e8542c61f1ecb394d98947">
     	<div class="container py-1 mb-2">
     		<div class="row">
     			<div class="col-6">
-    				<img src="presentacion/img/sello_unaponline_blanco.png" width= 170px height=40px>
+				<img src="presentacion/img/sello_unaponline_blanco.png" width= 260px height=60px style="margin-left: -56px;">
     			</div>
     			<div class="col-6 d-flex align-items-center justify-content-end">
     				<button class="btn btn-sm btn-outline-light" onclick="javascript:window.history.back()">Volver</button>
     			</div>
     		</div>
     	</div>
-		
 	</header>	
 	<div class="tab-content">
 		<div id="div_general" class="container">
@@ -251,7 +272,6 @@ die();
 			</div>
 		</div>
 	</div>
-
 	<!--Indicadores-->
 	<div id="div_general2" class="container">
 		<div class="row align-items-center">
@@ -259,49 +279,76 @@ die();
 				<h4 class="pt-2 pb-0">Indicadores</h4>
 				<!--<img src="presentacion/img/indicadores.png">-->
 				<div class="row align-items-center">
-				<div class="col">
-					
-				<div class="card" style="width: 160px; height: 65px; left:20px" title2=" Las veces que el docente ha ingresado a la plataforma Aula Virtual">
-					<div class="card-body">
-						<p style="font-size: 22px; width: 58px; float: left; margin-top: -15px;"><strong>10</strong></p><img src="img/graficoAzul.png" alt="10" style="width: 45px; float: right; margin-top: -20px;">
+						<!--<div class="card" style="width: 160px; height: 65px; left:20px" title2=" Las veces que el docente ha ingresado a la plataforma Aula Virtual">
+							<div class="card-body">
+								<p style="font-size: 22px; width: 58px; float: left; margin-top: -15px;"><strong>10</strong></p><img src="img/graficoAzul.png" alt="10" style="width: 45px; float: right; margin-top: -20px;">
+							</div>
+							<p class="card-text" style="font-size: 9px; text-align:center; position: relative; top: -10px;"><strong>Ingresos durante 7 días</strong></p>
+						</div>
 					</div>
-					<p class="card-text" style="font-size: 9px; text-align:center; position: relative; top: -10px;"><strong>Ingresos durante 7 días</strong></p>
+					<div class="col">
+						<div class="card" style="width: 160px; height: 65px; left:20px" title2=" La cantidad de respuestas que el docente a enviado a los estudiantes">
+							<div class="card-body">
+								<p style="font-size: 22px; width: 58px; float: left; margin-top: -15px;"><strong>65</strong></p><img src="img/graficoMorado.png" alt="10" style="width: 45px; float: right; margin-top: -20px;">
+							</div>
+							<p class="card-text" style="font-size: 9px; text-align: center; padding: 5px 10px;position: relative; top: -10px;"><strong>Respuesta a estudiantes a través del aula virtual</strong></p>
+						</div>
+					</div>
+					<div class="col">
+						<div class="card" style="width: 160px; height: 65px; left:20px"  title2=" Las veces que el docente ha interactuado con el estudiante en la plataforma Aula Virtual">
+							<div class="card-body">
+								<p style="font-size: 22px; width: 58px; float: left; margin-top: -15px;"><strong>34</strong></p><img src="img/graficoNaranjo.png" alt="10" style="width: 45px; float: right; margin-top: -20px;">
+							</div>
+							<p class="card-text" style="font-size: 9px; text-align:center; padding: 5px 10px;position: relative; top: -10px;"><strong>Retroalimentacion a estudiantes en actividades</strong></p>
+						</div>
+					</div>
+					<div class="col">
+						<div class="card" style="width: 160px; height: 65px; left:20px" title2=" Muestra el porcentaje en relacion de las pruebas publicadas y/o corregidas en el Aula Virtual">
+							<div class="card-body">
+								<p style="font-size: 22px; width: 58px; float: left; margin-top: -15px;"><strong>33%</strong></p><img src="img/graficoVerde.png" alt="10" style="width: 45px; float: right; margin-top: -20px;">
+							</div>
+							<p class="card-text"  style="font-size: 9px; text-align:center; position: relative; top: -10px;"><strong>Porcentaje exámenes corregidos</strong></p>
+						</div>
+					</div>-->
+					<div class="col-md-3 mb-4">
+						<div class="card" style="width: 180px; height: 80px; margin-top: -10px;" title2=" Las veces que el docente ha ingresado a la plataforma Aula Virtual">
+							<div class="card-body d-flex align-items-center justify-content-center position-relative" style="height: 80px;">
+								<strong style="position: absolute; left: 10px; font-size: 24px;">10</strong>
+								<img src="img/graficoAzul.png" class="img-fluid" alt="10" style="max-height: 80px; width: 70px; position: absolute; right: 10px;">
+							</div>
+						</div>
+						<p class="card-text" style="font-size: 14px; text-align: center; margin-top: 12px; width: 180px;">Ingresos durante 7 días</p>
+					</div>
+					<div class="col-md-3 mb-4">
+						<div class="card" style="width: 180px; height: 80px; margin-top: 11px;" title2=" La cantidad de respuestas que el docente a enviado a los estudiantes">
+							<div class="card-body d-flex align-items-center justify-content-center position-relative" style="height: 80px;">
+								<strong style="position: absolute; left: 10px; font-size: 24px;">10</strong>
+								<img src="img/graficoMorado.png" class="img-fluid" alt="10" style="max-height: 80px; width: 70px; position: absolute; right: 10px;">
+							</div>
+						</div>
+						<p class="card-text" style="font-size: 14px; text-align: center; margin-top: 12px; width: 180px;">Respuesta a estudiantes a través del aula virtual</p>
+					</div>
+					<div class="col-md-3 mb-4">
+						<div class="card" style="width: 180px; height: 80px; margin-top: 11px;" title2=" Las veces que el docente ha interactuado con el estudiante en la plataforma Aula Virtual">
+							<div class="card-body d-flex align-items-center justify-content-center position-relative" style="height: 80px;">
+								<strong style="position: absolute; left: 10px; font-size: 24px;">10</strong>
+								<img src="img/graficoNaranjo.png" class="img-fluid" alt="10" style="max-height: 80px; width: 70px; position: absolute; right: 10px;">
+							</div>
+						</div>
+						<p class="card-text" style="font-size: 14px; text-align: center; margin-top: 12px; width: 180px;">Retroalimentacion a estudiantes en actividades</p>
+					</div>
+					<div class="col-md-3 mb-4">
+						<div class="card" style="width: 180px; height: 80px; margin-top: 11px;" title2=" Muestra el porcentaje en relacion de las pruebas publicadas y/o corregidas en el Aula Virtual">
+							<div class="card-body d-flex align-items-center justify-content-center position-relative" style="height: 80px;">
+								<strong style="position: absolute; left: 10px; font-size: 24px;">10</strong>
+								<img src="img/graficoVerde.png" class="img-fluid" alt="10" style="max-height: 80px; width: 70px; position: absolute; right: 10px;">
+							</div>
+						</div>
+						<p class="card-text" style="font-size: 14px; text-align: center; margin-top: 12px; width: 180px;">Porcentaje exámenes corregidos</p>
+					</div>
 				</div>
 			</div>
-
-		<div class="col ">
-		<div class="card" style="width: 155px; height: 65px; left:-92px" title2=" La cantidad de respuestas que el docente a enviado a los estudiantes">
-						<div class="card-body">
-							<p style="font-size: 22px; width: 55px; float: left; margin-top: -15px;"><strong>65</strong></p><img src="img/graficoMorado.png" alt="10" style="width: 45px; float: right; margin-top: -20px;">
-						</div>
-						<p class="card-text" style="font-size: 9px; text-align: center; padding: 5px 10px;position: relative; top: -10px;"><strong>Respuesta a estudiantes a través del aula virtual</strong></p>
-
-
-					</div>
-					
 		</div>
-		<div class="col ">
-		<div class="card" style="width: 155px; height: 65px; left:-208px"  title2=" Las veces que el docente ha interactuado con el estudiante en la plataforma Aula Virtual">
-						<div class="card-body">
-							<p style="font-size: 22px; width: 55px; float: left; margin-top: -15px;"><strong>34</strong></p><img src="img/graficoNaranjo.png" alt="10" style="width: 45px; float: right; margin-top: -20px;">
-						</div>
-						<p class="card-text" style="font-size: 9px; text-align:center; padding: 5px 10px;position: relative; top: -10px;"><strong>Retroalimentacion a estudiantes en actividades</strong></p>
-					</div>
-		</div>
-		<div class="col">
-		<div class="card" style="width: 160px; height: 65px; left:-323px" title2=" Muestra el porcentaje en relacion de las pruebas publicadas y/o corregidas en el Aula Virtual">
-						<div class="card-body">
-							<p style="font-size: 22px; width: 55px; float: left; margin-top: -15px;"><strong>33%</strong></p><img src="img/graficoVerde.png" alt="10" style="width: 45px; float: right; margin-top: -20px;">
-						</div>
-						<p class="card-text"  style="font-size: 9px; text-align:center; position: relative; top: -10px;"><strong>Porcentaje exámenes corregidos</strong></p>
-					</div>
-		</div>
-  
-				
-		
-			</div>
-		</div>
-	</div>
 	</div>
 	<br><br><br>
 	<!--Calendarios-->
@@ -312,7 +359,6 @@ die();
 						<div class="col-12 col-md-6">
 							<h4><div class="mb-3">Calendario</div></h4>
 							<!--Aquí va el calendario--><br>
-							
 							<div class="calendar">
 								<div class="calendar__info">
 									<div class="calendar__prev" id="prev-month">&#9664;</div>
@@ -320,7 +366,6 @@ die();
 									<div class="calendar__year" id="year"></div>
 									<div class="calendar__next" id="next-month">&#9654;</div>
 								</div>
-							
 								<div class="calendar__week">
 									<div class="calendar_day calendar_item">Lun</div>
 									<div class="calendar_day calendar_item">Mar</div>
@@ -330,18 +375,16 @@ die();
 									<div class="calendar_day calendar_item">Sáb</div>
 									<div class="calendar_day calendar_item">Dom</div>
 								</div>
-							
 								<div class="calendar__dates" id="dates">
 								<!--<div class="calendar__date" data-date="2023-10-06">1</div>
    								<div class="calendar__date" data-date="2023-10-07">2</div>-->
 								</div>
-								
 							</div>									
 						</div>
 						<div class="col-12 col-md-6">
-						<h4 id="selected-date">Evaluando el día: <?php echo date("d/m/Y");?></h4>
+						<h4 id="selected-date">Evaluando el día: <?php echo date("d/m/Y"); ?></h4>
 							<!--Aquí va el calendario-->
-							<form action="reporte_online.php" method="POST">		
+						<form id="myForm" action="reporte_online.php" method="POST" target="_blank">
 							<table id="customers">
 								  <tr>
 									<td>
@@ -350,8 +393,7 @@ die();
 											<label class="form-check-label" for="flexCheckDefault" required title="Campo obligatorio">
 												Guiar y supervisar el trabajo del estudiante
 											</label>
-											
-											<label id="label1">*</label>
+											<label id="label1">*</label>	
 										</div>
 									</td>
 								  </tr>
@@ -362,7 +404,7 @@ die();
 											<label class="form-check-label" for="flexCheckDefault1" required title="Campo obligatorio">
 												Facilitar y promover la reflexión del estudiante
 											</label>
-											<label id="label1">*</label>
+											<label id="label1">*</label>	
 										</div>
 									</td>
 								  </tr>
@@ -373,7 +415,7 @@ die();
 											<label class="form-check-label" for="flexCheckDefault2" required title="Campo obligatorio">
 												Retroalimentar al estudiante en sus consultas
 											</label>
-											<label id="label1">*</label>
+											<label id="label1">*</label>	
 										</div>
 									</td>
 								  </tr>
@@ -437,83 +479,237 @@ die();
 										</div>
 									</td>
 								  </tr>
-								  
 							</table>	
-		                 	<div style="display: inline-block;">
-							<p style="color: #f70505;">* Este símbolo indica que son campos obligatorio</p>
-							<input type="submit"target="_blank" value="Enviar reporte pdf" class="btn btn-danger btn-sm">
+							<div style="display: inline-block;">
+							<p style="color: #f70505;">* Este símbolo indica que son campos obligatorios</p>
+							<button type="submit" class="btn btn-danger btn-sm">Enviar reporte PDF</button>			
+							<input type="hidden" id="saved-data" name="saved_data" value="">	
+							<input type="hidden" id="selected-date-input" name="selected_date">	
 							</form>
 							<!--<a href="http://localhost/index/reporte_online.php" target="_blank" class="btn btn-danger btn-sm">Ver reporte en PDF</a>-->
 							<!--<a href="https://campus.unap.cl/aula_virtual/presentacion/reporte_virtualizacion_preview.php?kcode=<?=$kcode?>" target="_blank" class="btn btn-danger btn-sm">Ver reporte en PDF</a>-->
             				<button type= "button" id="guardar-sesiones" class="btn btn-primary btn-sm" data-var0="<?/=$seguridad->encode('reasignar_sesion')/?>" onclick="validarCampos()">Guardar cambios</button>
-							</div>
 						</div>
 					</div>		
 			</div>		
 		</div>
 	</div>
-	
 	<br><br>
-	<script src="js/script1.js"></script>
+	<script src="js\script1.js"></script>
     <script src="https://campus.unap.cl/generalidades/lib/jquery-3.3.1/jquery-3.3.1.min.js"></script>
 	<script src="https://campus.unap.cl/generalidades/lib/bootstrap-4.5.2/js/bootstrap.bundle.min.js"></script>
 	<script src="https://campus.unap.cl/generalidades/lib/toastr-2.1.3/js/toastr-2.1.3.min.js"></script>
 	<script src="/index/plugins/toastr/toastr.min.js"></script>
-	
-
-	
 	<script>
+	$(document).ready(function() {
+    toastr.options = {
+        "preventDuplicates": true
+    };
+    let selectedDate = null;
+    let checkboxStates = {};  // Objeto para almacenar los estados de los checkboxes por día
+	let savedDates = [];  // Array para almacenar todas las fechas guardadas
 
-$(document).ready(function() {
-	toastr.options = {
-		"preventDuplicates": true
-	}
-	function validarCampos() {
-		// Verificamos si los tres campos obligatorios están marcados
-		const campoGuiar = document.getElementById('flexCheckDefault');
-		const campoGuiar1 = document.getElementById('flexCheckDefault1');
-		const campoGuiar2 = document.getElementById('flexCheckDefault2');
-		if (!(campoGuiar.checked && campoGuiar1.checked && campoGuiar2.checked)) {
-			toastr.error("Tiene que seleccionar los tres primeros campos obligatorios", "ERROR");
-			return;
-		} else {	
-			// Agregamos un evento al botón que marcará el día seleccionado
-			document.getElementById('guardar-sesiones').addEventListener('click', function() {
-				// Primero validamos los campos
-			if (validarCampos()) {  // Asegúrate de que validarCampos devuelva true si es válido
-				marcarDiaSeleccionado();  // Si es válido, marca el día seleccionado
-				toastr.success("Guardado Exitoso", "Guardado");
-		} else {
-			toastr.error("Error en los campos", "Error");
+    function validarCampos() {
+        const campoGuiar = document.getElementById('flexCheckDefault');
+        const campoGuiar1 = document.getElementById('flexCheckDefault1');
+        const campoGuiar2 = document.getElementById('flexCheckDefault2');
+        if (!(campoGuiar.checked && campoGuiar1.checked && campoGuiar2.checked)) {
+            toastr.error("Tiene que seleccionar los tres primeros campos obligatorios", "ERROR");
+            return false; // Retorna false si no se validan los campos
+        }
+        return true; // Retorna true si todos los campos son válidos
+    }
+    function limpiarCheckboxes() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+    }
+    function restaurarCheckboxes(dateKey) {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        if (checkboxStates[dateKey]) {
+            checkboxes.forEach(function(checkbox, index) {
+                checkbox.checked = checkboxStates[dateKey][index] || false;  // Restaura el estado si existe
+            });
+        } else {
+            limpiarCheckboxes();  // Si no hay estado guardado, limpiar checkboxes
+        }
+    }
+    function markToday() {
+        const today = new Date();
+        const currentDay = today.getDate();
+        const currentMonth = today.getMonth();
+        const currentYear = today.getFullYear();
+
+        const calendarDates = document.querySelectorAll('.calendar__date');
+        calendarDates.forEach(date => {
+            date.classList.remove('calendar__today');
+            if (parseInt(date.textContent) === currentDay &&
+                monthNumber === currentMonth &&
+                currentYear === currentYear) {
+                date.classList.add('calendar__today');
+            }
+        });
+    }
+    function updateCalendar() {
+        writeMonth(monthNumber);
+        markToday();
+        markSavedDates();
+    }
+    // Llamar a updateCalendar cuando se cambie de mes
+    document.querySelector('.calendar__prev').addEventListener('click', function() {
+        updateCalendar();
+    });
+
+    document.querySelector('.calendar__next').addEventListener('click', function() {
+        updateCalendar();
+    });
+
+    // Asegurarse de que el día actual esté marcado al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCalendar();
+    });
+    function marcarDiaSeleccionado(date) {
+        $('.calendar__date').each(function() {
+            $(this).removeClass('selected-date');
+            if ($(this).text() === date) {
+                $(this).addClass('selected-date');
+            }
+        });
+    }
+	function markSavedDates() {
+    $('.calendar__date').each(function() {
+        const day = $(this).text();
+        const dateKey = `${currentYear}-${monthNumber + 1}-${day}`;
+        if (checkboxStates[dateKey]) {
+            $(this).addClass('saved-date');
+            $(this).css('background-color', 'green');
+            $(this).css('color', 'white');
+            
+            // Actualizar el campo oculto con los datos guardados
+            $('#saved-data').val(JSON.stringify(checkboxStates[dateKey]));
+        } else {
+            $(this).removeClass('saved-date');
+            $(this).css('background-color', '');
+            $(this).css('color', '');
+        }
+    });
 }
+
+	function updateSavedSessionsField() {
+        const savedSessions = Object.keys(checkboxStates).map(dateKey => {
+            return {
+                date: dateKey,
+                checkboxes: checkboxStates[dateKey]
+            };
+        });
+        $('#saved-data').val(JSON.stringify(savedSessions));
+    }
+	$("#guardar-sesiones").on('click', function() {
+    if (validarCampos()) {
+        if (selectedDate) {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const day = parseInt(selectedDate);
+            const monthIndex = monthNumber;
+            const year = currentYear;
+            if (isNaN(day) || isNaN(monthIndex) || isNaN(year)) {
+                toastr.error("Error al obtener la fecha seleccionada", "ERROR");
+                return;
+            }
+            const dateKey = `${year}-${monthIndex + 1}-${day.toString().padStart(2, '0')}`;
+            
+            // Guarda solo los valores de los checkboxes seleccionados
+            const selectedCheckboxes = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+            const formattedDate = `${day.toString().padStart(2, '0')}/${months[monthIndex]}/${year}`;
+
+            // Agregar o actualizar la fecha en savedDates
+            const existingIndex = savedDates.findIndex(date => date.date === formattedDate);
+            if (existingIndex !== -1) {
+                savedDates[existingIndex] = { date: formattedDate, checkboxes: selectedCheckboxes };
+            } else {
+                savedDates.push({ date: formattedDate, checkboxes: selectedCheckboxes });
+            }
+
+            toastr.success(`Cambios guardados para el día ${formattedDate}`, "Guardado");
+
+            $('#selected-date').text(`Evaluando el día: ${formattedDate}`);
+            marcarDiaSeleccionado(selectedDate);
+            markSavedDates();
+            
+            // Actualizar el campo oculto con todas las sesiones guardadas
+            updateSavedSessionsField();
+        } else {
+            toastr.error("Debe seleccionar un día antes de guardar los cambios", "ERROR");
+        }
+    }
+});
+
+function updateSavedSessionsField() {
+    $('#saved-data').val(JSON.stringify(savedDates));
+}
+
+// Modificar el evento de envío del formulario
+$('#myForm').on('submit', function(e) {
+    if (savedDates.length === 0) {
+        e.preventDefault();
+        toastr.error("No hay fechas guardadas para generar el reporte", "ERROR");
+        return false;
+    }
+    
+    $('#saved-data').val(JSON.stringify(savedDates));
+    return true;
+});
+
+function markSavedDates() {
+    $('.calendar__date').each(function() {
+        const day = $(this).text();
+        const dateKey = `${currentYear}-${monthNumber + 1}-${day.toString().padStart(2, '0')}`;
+        const formattedDate = `${day.toString().padStart(2, '0')}/${(monthNumber + 1).toString().padStart(2, '0')}/${currentYear}`;
+        if (savedDates.some(date => date.date === formattedDate)) {
+            $(this).addClass('saved-date');
+            $(this).css('background-color', 'green');
+            $(this).css('color', 'white');
+        } else {
+            $(this).removeClass('saved-date');
+            $(this).css('background-color', '');
+            $(this).css('color', '');
+        }
+    });
+}
+
+$('.calendar__date').on('click', function() {
+    const clickedDate = $(this).text();
+    if (selectedDate !== clickedDate) {
+        selectedDate = clickedDate;
+        const dateKey = `${currentYear}-${monthNumber + 1}-${selectedDate}`;
+        const formattedDate = `${selectedDate.toString().padStart(2, '0')}/${(monthNumber + 1).toString().padStart(2, '0')}/${currentYear}`;
+        const savedDate = savedDates.find(date => date.date === formattedDate);
+        if (savedDate) {
+            // Restaurar los checkboxes guardados para esta fecha
+            $('input[type="checkbox"]').each(function() {
+                $(this).prop('checked', savedDate.checkboxes.includes($(this).val()));
+            });
+        } else {
+            // Limpiar todos los checkboxes si no hay datos guardados para esta fecha
+            $('input[type="checkbox"]').prop('checked', false);
+        }
+        $('#selected-date').text(`Evaluando el día: ${formattedDate}`);
+        $('#selected-date-input').val(`${currentYear}-${monthNumber + 1}-${selectedDate}`);
+        marcarDiaSeleccionado(selectedDate);
+    }
 });
 });
-
 </script>
-
-</script>
-
-<script>
+	<script>
 	// Selecciona el contenedor de fechas
 	let today = document.querySelector('.calendar__today');
 	const datesContainer = document.getElementById('dates');
 	let selectedDate = null;
 	const clickedDate = new Date();
-
-	const unmarkToday = () => {
-		const currentToday = document.querySelector('.calendar__today');
-		if (currentToday) {
-			currentToday.classList.remove('calendar__today');
-		}
-	}
-	// Función para cambiar el color del día seleccionado a verde
-	function marcarDiaSeleccionado() {
-		if (selectedDate) {
-			selectedDate.style.backgroundColor = 'green'; // Verde
-			//selectedDate.classList.add('disabled');
-			selectedDate.style.cursor = 'not-allowed';
-		}
-	}
 	// Agrega un evento al contenedor de fechas para detectar clics en los días
 	datesContainer.addEventListener('click', function(event) {
 		const clickedDate = event.target;
@@ -536,20 +732,16 @@ $(document).ready(function() {
 	document.addEventListener('DOMContentLoaded', function () {
 		writeMonth(monthNumber);
 	});
-
-   
 </script>
 <script>
-	//para que al momento de cargar la pagina se eliminen los checkbox
-	window.addEventListener('load', function() {
-		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-		checkboxes.forEach(function(checkbox) {
-			checkbox.checked = false;
-		});
-		});
+// Para que al momento de cargar la página se eliminen los checkboxes
+window.addEventListener('', function() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = false;
+    });
+});
 </script>
-
-
 <script>
 /*toastr.options = {
 	//primeras opciones
@@ -575,6 +767,5 @@ $(document).ready(function() {
   "hideMethod": "fadeOut"
 }*/
 </script>
-
 </body>
 </html>

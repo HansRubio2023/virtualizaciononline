@@ -77,82 +77,112 @@ use Dompdf\Options;
 $numero_hojas = count($asignaturas);
 $hojas = 0;
 ob_start();*/
+// Asegúrate de tener instalado Dompdf y de cargarlo correctamente.
+require 'vendor/autoload.php'; // Ruta a tu archivo autoload de Composer.
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+
+// Función para convertir imagen a base64
+function imageToBase64($path) {
+    $type = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    return 'data:image/' . $type . ';base64,' . base64_encode($data);
+}
+
+
+// Configuración de Dompdf
+$options = new Options();
+$options->set('isRemoteEnabled', true); // Habilitar imágenes remotas si las usas.
+$options->set('defaultFont', 'Helvetica');
+
+
+
+// Inicialización de Dompdf
+$dompdf = new Dompdf($options);
+
+// Definir las rutas de las imágenes
+$checkImagePath = 'presentacion/img/check_t.png';
+$timesImagePath = 'presentacion/img/times_t.png';
+$unapImagePath = 'presentacion/img/sello_unaponline_celeste.png';
+
+
+
+// Convertir imágenes a base64
+$checkImageBase64 = imageToBase64($checkImagePath);
+$timesImageBase64 = imageToBase64($timesImagePath);
+$unapImagePath = imageToBase64($unapImagePath);
+
+// Generar el contenido HTML
+ob_start();
 $date = date('d/m/Y H:i:s');
 ?>
-
+<!DOCTYPE html>
 <html>
     <head>
-	<link rel="icon" href="/index/presentacion/img/favicon.ico" type="image/x-icon">	
         <meta charset="UTF-8">
         <style>
-            {
+            /* Estilos CSS para el PDF */
+            body {
                 font-size: 10px;
                 font-family: 'Helvetica';
             }
-            #pdf-container{
-                padding: 20px 40px; 
-            }
-            .text-center{
+            /*#pdf-container {
+                padding: 20px 40px;
+            }*/
+            .text-center {
                 text-align: center;
             }
-            .text-left{
+            .text-left {
                 text-align: left;
             }
-            .img-logo{
+            /*.img-logo {
                 max-width: 160px;
-            }
-            table{
-                width: 100%;
-            }
-            #tabla-asistencia-pdf th{
-                text-align: center;  
-				font-family: 'Helvetica';           	
-            }
-            #tabla-asistencia-pdf{  
-                width: 100%;
+            }*/
+            table {
+                width: 104%;
                 border-collapse: collapse;
-                page-break-inside: auto;
             }
-            #tabla-asistencia-pdf th,#tabla-asistencia-pdf td{
+            #tabla-asistencia-pdf th {
+                text-align: center;
+                font-family: 'Helvetica';
+            }
+            #tabla-asistencia-pdf th, #tabla-asistencia-pdf td {
                 padding: 4px;
                 font-size: 9px;
+                border: 1px solid #ddd;
             }
-            #tabla-asistencia-pdf tr:nth-child(even){
+            #tabla-asistencia-pdf tr:nth-child(even) {
                 background-color: #d6eaf8;
             }
-            #tabla-asistencia-pdf thead{
+            #tabla-asistencia-pdf thead {
                 background-color: #2980b9;
                 color: #fff;
             }
-            .page_break { page-break-before: always; }
-            .check-indicador{
-               height: 12px;
+            tr{
+                font-size: 10px;
             }
-            .times-indicador{
-               height: 10px;
+            td{
+                font-size: 10px;
             }
-        </style> 
+            
+        </style>
     </head>
     <body>
         <div id="pdf-container">
     		<table class="text-center" >
     			<tr>
     				<td>
-                    
-    					<img class="img-logo" src="/index/presentacion/img/sello_unaponline_celeste.png" width= 180px height=36px style="vertical-align: middle; margin-right: 10px;"> 
-                        <span style="font-size: 20px; vertical-align: middle;"><strong>Seguimiento de Clases Online</strong></span>
-
-                        
-    				
+                    <img src="<?php echo $unapImagePath; ?>" width="180px" height="36px" style="display: block; margin: 0 auto;">
+                    <br>
+                    <span style="font-size: 20px; display: block; text-align: center;"><strong>Seguimiento de Clases Online</strong></span>
     				</td>
     			</tr>
-    			
     		</table>
-            
     		<table>
     			<tr>
     				<td class="text-left">
-    					
     				</td>
     			</tr>
     		</table>
@@ -187,55 +217,79 @@ $date = date('d/m/Y H:i:s');
     			</tr>
     		</table>	
     		<table id="tabla-asistencia-pdf"  class="table table-bordered">
-    	    	
             </table>
             <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Procesamos los datos del formulario
-    $checkbox1_results = $_POST['checkbox1'] ?? [];
+// Inicializar $saved_data fuera del bloque POST
+$saved_data = isset($_POST['saved_data']) ? json_decode($_POST['saved_data'], true) : [];
 
-    // Definir los nombres de los checkbox que se mostrarán
-    $checkbox_options = [
-        "Guiar y supervisar el trabajo del estudiante",
-        "Facilitar y promover la reflexión del estudiante",
-        "Retroalimentar al estudiante en sus consultas",
-        "Retroalimentar al estudiantes sus actividades",
-        "Atender consultas",
-        "Realizar videoconferencia/Atención virtual/Grabar video",
-        "Realizar seguimiento diario de los estudiante",
-        "Corrección de exámenes",
-        "Registro de notas"
-    ];
-    
-    echo '<table id="tabla-asistencia-pdf" class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>N°</th>
-                    <th>Clases</th>';
-    foreach ($checkbox_options as $option) {
-        echo '<th>' . $option . '</th>';
-    }
-    echo '</tr></thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>fecha</td>';
-    foreach ($checkbox_options as $option) {
-        $option = str_replace('<br>', ' ', $option); 
-        if (in_array($option, $checkbox1_results)) {
-            echo '<td><img src="presentacion/img/check_t.png" alt="Marcado"></td>';
-        } else {
-            echo '<td>&nbsp;</td>';
-            //echo '<td><img src="presentacion/img/times_t.png" alt="Marcado"></td>';
-        }
-    }
-    echo '</tr></tbody></table>';
+// Asegurarse de que $saved_data sea siempre un array
+if (!is_array($saved_data)) {
+    $saved_data = [];
 }
+
+// Definir los nombres de los checkbox que se mostrarán
+$checkbox_options = [
+    "Guiar y supervisar el trabajo del estudiante",
+    "Facilitar y promover la reflexión del estudiante",
+    "Retroalimentar al estudiante en sus consultas",
+    "Retroalimentar al estudiantes sus actividades",
+    "Atender consultas",
+    "Realizar videoconferencia/Atención virtual/Grabar video",
+    "Realizar seguimiento diario de los estudiante",
+    "Corrección de exámenes",
+    "Registro de notas"
+];
+
+echo '<table id="tabla-asistencia-pdf" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Fecha</th>';
+foreach ($checkbox_options as $option) {
+    echo '<th>' . $option . '</th>';
+}
+echo '</tr></thead>
+        <tbody>';
+
+if (!empty($saved_data)) {
+    foreach ($saved_data as $index => $entry) {
+        echo '<tr>
+                <td>' . ($index + 1) . '</td>
+                <td>' . $entry['date'] . '</td>';
+        
+        foreach ($checkbox_options as $option) {
+            if (in_array($option, $entry['checkboxes'])) {
+                echo '<td><img src="' . $checkImageBase64 . '" alt="Marcado" style="width: 10px; height: 10px;"></td>';
+            } else {
+                echo '<td><img src="' . $timesImageBase64 . '" alt="No Marcado" style="width: 10px; height: 10px;"></td>';
+            }
+        }
+        echo '</tr>';
+    }
+} else {
+    echo '<tr><td colspan="' . (count($checkbox_options) + 2) . '">No hay datos guardados.</td></tr>';
+}
+
+echo '</tbody></table>';
+
+// Actualizar el campo hidden con los datos guardados
+echo '<input type="hidden" name="saved_data" value="' . htmlspecialchars(json_encode($saved_data)) . '">';
 ?>
-
-
-
-
-
     </body>
 </html>
+
+<?php
+// Recoger el contenido HTML generado
+$html = ob_get_clean();
+
+// Cargar el contenido en Dompdf
+$dompdf->loadHtml($html);
+
+// (Opcional) Configurar el tamaño de papel y la orientación
+$dompdf->setPaper('A4', 'portrait');
+
+// Renderizar el PDF
+$dompdf->render();
+
+// Enviar el PDF al navegador para descarga o vista previa
+$dompdf->stream('reporte.pdf', ['Attachment' => 0]); // Attachment = 0 para abrirlo en el navegador
