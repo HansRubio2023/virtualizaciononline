@@ -51,9 +51,9 @@
       text-align: center;
       line-height: 2; }
     .calendar__today {
-      background: #00f811;
+      background: #c6f800;
       color: rgb(255, 255, 255);
-      width: 70%;
+      width: 85%;
       /*border-radius: 50%;*/
       margin: auto; }
     .calendar__last-days {
